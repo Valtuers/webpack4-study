@@ -1,3 +1,10 @@
 import $ from 'jquery';
-import 'style-loader!css-loader!./css/style.css';
-import 'style-loader!css-loader!sass-loader!./css/index.scss';
+import './css/style.css';
+import './css/index.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+class Person{
+    static info = {name:'lmc',age:22}
+}
+
+console.log(Person.info);
