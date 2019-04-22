@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');//启用热更新的第一步(可以直接在package.json中设置，而不用在这里设置）
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 //向外暴露了一个配置对象
 module.exports = {
@@ -22,7 +23,8 @@ module.exports = {
             template: path.join(__dirname, './src/index.html'),
             filename: 'index.html'
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new VueLoaderPlugin()
     ],
     module: { //这个节点用于配置所有第三方模块loader
         rules: [
@@ -31,9 +33,15 @@ module.exports = {
             {test: /\.scss$/, use: ['style-loader','css-loader','sass-loader']},
             //limit参数表示图片大于或等于limit值时被转化为base64,
             //name参数表示设置图片名称
-            {test: /\.jpg|png|jpeg|gif|bmp/, use: 'url-loader?limit=52000&name=[hash:8]-[name].[ext]'},
+            {test: /\.jpg|png|jpeg|gif|bmp$/, use: 'url-loader?limit=52000&name=[hash:8]-[name].[ext]'},
             {test: /\.ttf|woff|woff2|svg|eot$/, use: 'url-loader'},
-            {test: /\.js$/, use: 'babel-loader',exclude:/node_modules/}
+            {test: /\.js$/, use: 'babel-loader',exclude:/node_modules/},
+            {test: /\.vue$/, use: "vue-loader"}
         ]
+    },
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.js'
+        }
     }
 };

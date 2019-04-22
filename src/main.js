@@ -1,10 +1,15 @@
-import $ from 'jquery';
-import './css/style.css';
-import './css/index.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import app from './App.vue';
 
-class Person{
-    static info = {name:'lmc',age:22}
-}
+Vue.use(VueRouter);
+import router from './router.js';
 
-console.log(Person.info);
+const vm = new Vue({
+    el: '#app',
+    data:{
+        msg: "lmc"
+    },
+    render:c => c(app),
+    router
+});
